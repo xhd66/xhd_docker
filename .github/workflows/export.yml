@@ -18,7 +18,7 @@ jobs:
           docker save apache/skywalking-banyandb:0.8.0 apache/skywalking-oap-server:10.2.0-java17 apache/skywalking-ui:10.2.0-java17 -o skywalking.tar
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # 已更新为 v4
         with:
           name: skywalking-images
           path: skywalking.tar
