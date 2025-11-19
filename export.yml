@@ -1,0 +1,24 @@
+name: Export Docker Images
+
+on:
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull images
+        run: |
+          docker pull apache/skywalking-banyandb:0.8.0
+          docker pull apache/skywalking-oap-server:10.2.0-java17
+          docker pull apache/skywalking-ui:10.2.0-java17
+
+      - name: Save images
+        run: |
+          docker save apache/skywalking-banyandb:0.8.0 apache/skywalking-oap-server:10.2.0-java17 apache/skywalking-ui:10.2.0-java17 -o skywalking.tar
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: skywalking-images
+          path: skywalking.tar
